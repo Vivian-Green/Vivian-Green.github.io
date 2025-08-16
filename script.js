@@ -25,26 +25,34 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener('resize', handleOrientation);
 
     // First load recent posts from data.js
-    loadPosts('data.js', 'recentPosts', function() {
-        // After recent posts are loaded, load older posts from data2.js
-        loadPosts('data2.js', 'olderPosts');
-    });
+loadPosts('https://raw.githubusercontent.com/Vivian-Green/Vivian-Green.github.io/main/data.js', 'recentPosts', function() {
+    // After recent posts are loaded, load older posts from data2.js
+    loadPosts('https://raw.githubusercontent.com/Vivian-Green/Vivian-Green.github.io/main/data2.js', 'olderPosts');
+});
 
-    function loadPosts(jsFile, variableName, callback) {
-        const script = document.createElement('script');
-        script.src = jsFile;
-        script.onload = function() {
+function loadPosts(url, variableName, callback) {
+    fetch(url)
+        .then(response => {
+            if (!response.ok) throw new Error(`Failed to load ${url}`);
+            return response.text();
+        })
+        .then(scriptText => {
+            // Execute the script to set the variable in the global scope
+            const script = document.createElement('script');
+            script.textContent = scriptText;
+            document.head.appendChild(script);
+            
+            // Check if the variable was set and render posts
             if (window[variableName]) {
                 renderPosts(window[variableName]);
             }
             if (callback) callback();
-        };
-        script.onerror = function() {
-            console.error('Error loading ' + jsFile);
+        })
+        .catch(error => {
+            console.error('Error loading ' + url, error);
             if (callback) callback();
-        };
-        document.head.appendChild(script);
-    }
+        });
+}
 
     function renderPosts(posts) {
         if (!posts || !posts.length) return;
