@@ -25,11 +25,11 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener('resize', handleOrientation);
 
     // Load recent posts first, then older posts
-    loadJSON('https://raw.githubusercontent.com/Vivian-Green/Vivian-Green.github.io/main/recentPosts.json')
+    loadJSON('https://vivian-green.github.io/recentPosts.json')
         .then(data => {
             renderPosts(data);
             // After recent posts load, fetch older posts
-            return loadJSON('https://raw.githubusercontent.com/Vivian-Green/Vivian-Green.github.io/main/olderPosts.json');
+            return loadJSON('https://vivian-green.github.io/olderPosts.json');
         })
         .then(data => {
             renderPosts(data);
