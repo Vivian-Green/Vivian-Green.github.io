@@ -14,7 +14,7 @@ def parse_markdown(content):
     subtitle_match = re.search(r'^## (.+)', content, re.MULTILINE)
     subtitle = subtitle_match.group(1) if subtitle_match else ''
     
-    if subtitle == "": # if contains no ## try first ###
+    if subtitle == "":  # if contains no ##, try first ###
         subtitle_match2 = re.search(r'^### (.+)', content, re.MULTILINE)
         subtitle = subtitle_match2.group(1) if subtitle_match2 else ''
 
@@ -22,7 +22,6 @@ def parse_markdown(content):
     thumbnail_match = re.search(r'!\[.*?\]\((.*?)\)', content)
     thumbnail = thumbnail_match.group(1) if thumbnail_match else ''
 
-    # Return extracted data
     return {
         'title': title,
         'subtitle': subtitle,
@@ -30,7 +29,7 @@ def parse_markdown(content):
         'content': content
     }
 
-def build_js_files(posts_dir):
+def build_json_files(posts_dir):
     posts_data = []
 
     # Iterate over all markdown files in the directory
@@ -47,27 +46,22 @@ def build_js_files(posts_dir):
                     'content': post_data['content']
                 })
 
-    # Sort posts by filename in reverse chronological order
+    # Sort posts by filename (reverse chronological order)
     posts_data.sort(key=lambda x: x['filename'], reverse=True)
 
     # Split into recent posts (first 2) and older posts (the rest)
     recent_posts = posts_data[:2]
     older_posts = posts_data[2:]
 
-    # Generate JavaScript code for recent posts
-    recent_js_content = f'var recentPosts = {json.dumps(recent_posts, indent=4)};'
-    
-    # Generate JavaScript code for older posts
-    older_js_content = f'var olderPosts = {json.dumps(older_posts, indent=4)};'
+    # Write recent posts to JSON
+    with open('recentPosts.json', 'w', encoding='utf-8') as f:
+        json.dump(recent_posts, f, indent=4, ensure_ascii=False)
 
-    # Write to files
-    with open('data.js', 'w', encoding='utf-8') as f:
-        f.write(recent_js_content)
-    
-    with open('data2.js', 'w', encoding='utf-8') as f:
-        f.write(older_js_content)
+    # Write older posts to JSON
+    with open('olderPosts.json', 'w', encoding='utf-8') as f:
+        json.dump(older_posts, f, indent=4, ensure_ascii=False)
 
-    print("data.js and data2.js files have been generated successfully!")
+    print("recentPosts.json and olderPosts.json have been generated successfully!")
 
 if __name__ == '__main__':
-    build_js_files(POSTS_DIR)
+    build_json_files(POSTS_DIR)

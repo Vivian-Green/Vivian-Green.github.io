@@ -25,41 +25,30 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener('resize', handleOrientation);
 
     // Load recent posts first, then older posts
-    loadPosts('https://raw.githubusercontent.com/Vivian-Green/Vivian-Green.github.io/main/data.js', function(data) {
-        renderPosts(data);
-        // After recent posts load, fetch older posts
-        loadPosts('https://raw.githubusercontent.com/Vivian-Green/Vivian-Green.github.io/main/data2.js', function(data) {
+    loadJSON('https://raw.githubusercontent.com/Vivian-Green/Vivian-Green.github.io/main/recentPosts.json')
+        .then(data => {
             renderPosts(data);
+            // After recent posts load, fetch older posts
+            return loadJSON('https://raw.githubusercontent.com/Vivian-Green/Vivian-Green.github.io/main/olderPosts.json');
+        })
+        .then(data => {
+            renderPosts(data);
+        })
+        .catch(error => {
+            console.error("Error loading posts:", error);
         });
-    });
 
     /**
-     * Fetches and parses a JS file containing JSON-like data.
-     * @param {string} url - Raw GitHub URL of the data file.
-     * @param {function} callback - Called with parsed data.
+     * Fetches and parses a JSON file from GitHub
+     * @param {string} url - Raw GitHub URL of the JSON file
+     * @returns {Promise<Array>} - Parsed JSON data
      */
-    function loadPosts(url, callback) {
-        fetch(url)
-            .then(response => {
-                if (!response.ok) throw new Error(`Failed to load ${url}`);
-                return response.text();
-            })
-            .then(scriptText => {
-                // Extract the variable assignment (e.g., `var recentPosts = [...]`)
-                const variableMatch = scriptText.match(/var\s+(\w+)\s*=\s*(\[.*?\]|\{.*?\});/s);
-                if (!variableMatch) throw new Error("No valid JSON data found in script.");
-
-                try {
-                    // Parse the JSON-like structure safely
-                    const data = JSON.parse(variableMatch[2]);
-                    callback(data);
-                } catch (e) {
-                    throw new Error("Failed to parse data: " + e.message);
-                }
-            })
-            .catch(error => {
-                console.error("Error loading posts:", error);
-            });
+    async function loadJSON(url) {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Failed to load ${url} (status: ${response.status})`);
+        }
+        return await response.json();
     }
 
     function renderPosts(posts) {

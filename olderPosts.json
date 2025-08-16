@@ -1,4 +1,4 @@
-var olderPosts = [
+[
     {
         "filename": "202508081846noise based texture reconstructer.md",
         "title": "Comically bad Compression but it's a Visual Effect now",
@@ -34,4 +34,4 @@ var olderPosts = [
         "thumbnail": "https://i.imgur.com/tYNZSj1.jpeg \"autism creature\"",
         "content": "![autism creature](https://i.imgur.com/tYNZSj1.jpeg \"autism creature\")\n\n# hello world\n\n## I think this is a website?\n\nI'm not entirely sure what to put here tbh\n\n\n\n### I have no idea what I'm doing\n\nI'm not like a frontend dev or anything, just bored and figured I might as well do something like this. Lorem ipsum dolor sit amet or whatever."
     }
-];
+]
