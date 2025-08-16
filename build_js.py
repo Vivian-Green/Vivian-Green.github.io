@@ -29,7 +29,7 @@ def parse_markdown(content):
         'content': content
     }
 
-def build_output_files(posts_dir):
+def build_json_files(posts_dir):
     posts_data = []
 
     # Iterate over all markdown files in the directory
@@ -46,30 +46,22 @@ def build_output_files(posts_dir):
                     'content': post_data['content']
                 })
 
-    # Sort posts by filename in reverse chronological order
+    # Sort posts by filename (reverse chronological order)
     posts_data.sort(key=lambda x: x['filename'], reverse=True)
 
     # Split into recent posts (first 2) and older posts (the rest)
     recent_posts = posts_data[:2]
     older_posts = posts_data[2:]
 
-    # Generate JSON versions (for Neocities fallback)
+    # Write recent posts to JSON
     with open('recentPosts.json', 'w', encoding='utf-8') as f:
         json.dump(recent_posts, f, indent=4, ensure_ascii=False)
-    
+
+    # Write older posts to JSON
     with open('olderPosts.json', 'w', encoding='utf-8') as f:
         json.dump(older_posts, f, indent=4, ensure_ascii=False)
 
-    # Generate JSONP versions (for GitHub Pages)
-    with open('recentPosts.js', 'w', encoding='utf-8') as f:
-        f.write(f'handleRecentPosts({json.dumps(recent_posts, indent=4, ensure_ascii=False)});')
-    
-    with open('olderPosts.js', 'w', encoding='utf-8') as f:
-        f.write(f'handleOlderPosts({json.dumps(older_posts, indent=4, ensure_ascii=False)});')
-
-    print("Generated files successfully!")
-    print("- JSON (for Neocities): recentPosts.json, olderPosts.json")
-    print("- JSONP (for GitHub): recentPosts.js, olderPosts.js")
+    print("recentPosts.json and olderPosts.json have been generated successfully!")
 
 if __name__ == '__main__':
-    build_output_files(POSTS_DIR)
+    build_json_files(POSTS_DIR)

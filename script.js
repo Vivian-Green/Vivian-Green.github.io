@@ -53,33 +53,50 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Main load function with JSONP fallback
     async function loadPosts() {
         try {
-            // First try to load via JSONP
-            const recent = await loadJSONP(
-                'https://vivian-green.github.io/recentPosts.js',
-                'handleRecentPosts'
-            );
+            const baseUrl = 'https://vivian-green.github.io';
             
-            const older = await loadJSONP(
-                'https://vivian-green.github.io/olderPosts.js',
-                'handleOlderPosts'
-            );
+            // First try with proper CORS headers
+            const [recent, older] = await Promise.all([
+                fetchWithCORS(`${baseUrl}/recentPosts.json`),
+                fetchWithCORS(`${baseUrl}/olderPosts.json`)
+            ]);
             
             renderPosts(recent);
             renderPosts(older);
             
         } catch (error) {
-            console.error("JSONP failed, trying local fallback:", error);
+            console.warn("CORS request failed, trying local fallback:", error);
             try {
-                // Fallback to local files
-                const localRecent = await fetch('/recentPosts.json').then(r => r.json());
+                // Fallback to Neocities-local files
+                const [localRecent, localOlder] = await Promise.all([
+                    fetch('/recentPosts.json').then(r => r.json()),
+                    fetch('/olderPosts.json').then(r => r.json())
+                ]);
                 renderPosts(localRecent);
+                renderPosts(localOlder);
             } catch (e) {
                 showErrorMessage();
             }
         }
+    }
+
+    // Special fetch with CORS headers
+    async function fetchWithCORS(url) {
+        const response = await fetch(url, {
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json',
+                'Origin': window.location.origin
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+        
+        return response.json();
     }
 
     function renderPosts(posts) {
