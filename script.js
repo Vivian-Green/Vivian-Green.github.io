@@ -24,32 +24,22 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add resize listener
     window.addEventListener('resize', handleOrientation);
 
-    // Load recent posts first, then older posts
-    loadJSON('https://vivian-green.github.io/recentPosts.json')
-        .then(data => {
-            renderPosts(data);
-            // After recent posts load, fetch older posts
-            return loadJSON('https://vivian-green.github.io/olderPosts.json');
-        })
-        .then(data => {
-            renderPosts(data);
-        })
-        .catch(error => {
-            console.error("Error loading posts:", error);
-        });
-
-    /**
-     * Fetches and parses a JSON file from GitHub
-     * @param {string} url - Raw GitHub URL of the JSON file
-     * @returns {Promise<Array>} - Parsed JSON data
-     */
-    async function loadJSON(url) {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Failed to load ${url} (status: ${response.status})`);
-        }
-        return await response.json();
+    async function loadPosts() {
+      try {
+        const baseUrl = 'https://vivian-green.github.io';
+        const [recent, older] = await Promise.all([
+          fetch(`${baseUrl}/recentPosts.json`).then(r => r.json()),
+          fetch(`${baseUrl}/olderPosts.json`).then(r => r.json())
+        ]);
+        
+        renderPosts(recent);
+        renderPosts(older);
+      } catch (error) {
+        console.error("Failed to load posts:", error);
+      }
     }
+
+    loadPosts();
 
     function renderPosts(posts) {
         if (!posts || !posts.length) return;
