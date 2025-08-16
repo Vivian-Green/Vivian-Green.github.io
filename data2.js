@@ -1,5 +1,12 @@
 var olderPosts = [
     {
+        "filename": "202508081846noise based texture reconstructer.md",
+        "title": "Comically bad Compression but it's a Visual Effect now",
+        "subtitle": "",
+        "thumbnail": "https://i.imgur.com/vuaiFKd.jpeg \"reconstruction screenshot\"",
+        "content": "# Comically bad Compression but it's a Visual Effect now\n\n![reconstruction screenshot](https://i.imgur.com/vuaiFKd.jpeg \"reconstruction screenshot\")\n\nBuilt this in Python back in 2024 on a whim, thinking sampling noise recursively might be able to make a decently close version of an image, and maaaaybe it'll be smaller in size. What I ended up with instead was an interesting painterly effect, that took a while to generate. \n\n[demo video](https://www.youtube.com/watch?v=Ae_Mxj4cF7Y) \n\nWorks by analyzing the image at multiple scales, producing grids of tiles, searching for noise seeds that best approximate the texture for each tile, for each color channel, then blending those grids together as the scales get finer.\n"
+    },
+    {
         "filename": "202508081635animalese voiceover and text renderer.md",
         "title": "Animalese Voiceover and Textbox Renderer",
         "subtitle": "",
