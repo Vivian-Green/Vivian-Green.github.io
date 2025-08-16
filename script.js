@@ -24,22 +24,63 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add resize listener
     window.addEventListener('resize', handleOrientation);
 
-    async function loadPosts() {
-      try {
-        const baseUrl = 'https://vivian-green.github.io';
-        const [recent, older] = await Promise.all([
-          fetch(`${baseUrl}/recentPosts.json`).then(r => r.json()),
-          fetch(`${baseUrl}/olderPosts.json`).then(r => r.json())
-        ]);
-        
-        renderPosts(recent);
-        renderPosts(older);
-      } catch (error) {
-        console.error("Failed to load posts:", error);
-      }
+    function showErrorMessage(message = "Posts couldn't be loaded. Please refresh or try again later.") {
+        const container = document.getElementById('posts-container') || document.body;
+        const errorElement = document.createElement('div');
+        errorElement.className = 'error-message';
+        errorElement.innerHTML = `
+            <p>⚠️ ${message}</p>
+            <button onclick="window.location.reload()">Retry</button>
+        `;
+        container.prepend(errorElement);
     }
 
-    loadPosts();
+    // JSONP loader function
+    function loadJSONP(url, callbackName) {
+        return new Promise((resolve, reject) => {
+            window[callbackName] = (data) => {
+                delete window[callbackName];
+                resolve(data);
+            };
+            
+            const script = document.createElement('script');
+            script.src = `${url}?callback=${callbackName}`;
+            script.onerror = () => {
+                delete window[callbackName];
+                reject(new Error(`Failed to load ${url}`));
+            };
+            document.body.appendChild(script);
+        });
+    }
+
+    // Main load function with JSONP fallback
+    async function loadPosts() {
+        try {
+            // First try to load via JSONP
+            const recent = await loadJSONP(
+                'https://vivian-green.github.io/recentPosts.js',
+                'handleRecentPosts'
+            );
+            
+            const older = await loadJSONP(
+                'https://vivian-green.github.io/olderPosts.js',
+                'handleOlderPosts'
+            );
+            
+            renderPosts(recent);
+            renderPosts(older);
+            
+        } catch (error) {
+            console.error("JSONP failed, trying local fallback:", error);
+            try {
+                // Fallback to local files
+                const localRecent = await fetch('/recentPosts.json').then(r => r.json());
+                renderPosts(localRecent);
+            } catch (e) {
+                showErrorMessage();
+            }
+        }
+    }
 
     function renderPosts(posts) {
         if (!posts || !posts.length) return;
@@ -114,4 +155,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const day = datePart.slice(6, 8);
         return `${month}/${day}/${year}`;
     }
+
+    loadPosts();
 });
