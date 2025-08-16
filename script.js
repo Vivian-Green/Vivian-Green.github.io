@@ -24,35 +24,43 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add resize listener
     window.addEventListener('resize', handleOrientation);
 
-    // First load recent posts from data.js
-loadPosts('https://raw.githubusercontent.com/Vivian-Green/Vivian-Green.github.io/main/data.js', 'recentPosts', function() {
-    // After recent posts are loaded, load older posts from data2.js
-    loadPosts('https://raw.githubusercontent.com/Vivian-Green/Vivian-Green.github.io/main/data2.js', 'olderPosts');
-});
-
-function loadPosts(url, variableName, callback) {
-    fetch(url)
-        .then(response => {
-            if (!response.ok) throw new Error(`Failed to load ${url}`);
-            return response.text();
-        })
-        .then(scriptText => {
-            // Execute the script to set the variable in the global scope
-            const script = document.createElement('script');
-            script.textContent = scriptText;
-            document.head.appendChild(script);
-            
-            // Check if the variable was set and render posts
-            if (window[variableName]) {
-                renderPosts(window[variableName]);
-            }
-            if (callback) callback();
-        })
-        .catch(error => {
-            console.error('Error loading ' + url, error);
-            if (callback) callback();
+    // Load recent posts first, then older posts
+    loadPosts('https://raw.githubusercontent.com/Vivian-Green/Vivian-Green.github.io/main/data.js', function(data) {
+        renderPosts(data);
+        // After recent posts load, fetch older posts
+        loadPosts('https://raw.githubusercontent.com/Vivian-Green/Vivian-Green.github.io/main/data2.js', function(data) {
+            renderPosts(data);
         });
-}
+    });
+
+    /**
+     * Fetches and parses a JS file containing JSON-like data.
+     * @param {string} url - Raw GitHub URL of the data file.
+     * @param {function} callback - Called with parsed data.
+     */
+    function loadPosts(url, callback) {
+        fetch(url)
+            .then(response => {
+                if (!response.ok) throw new Error(`Failed to load ${url}`);
+                return response.text();
+            })
+            .then(scriptText => {
+                // Extract the variable assignment (e.g., `var recentPosts = [...]`)
+                const variableMatch = scriptText.match(/var\s+(\w+)\s*=\s*(\[.*?\]|\{.*?\});/s);
+                if (!variableMatch) throw new Error("No valid JSON data found in script.");
+
+                try {
+                    // Parse the JSON-like structure safely
+                    const data = JSON.parse(variableMatch[2]);
+                    callback(data);
+                } catch (e) {
+                    throw new Error("Failed to parse data: " + e.message);
+                }
+            })
+            .catch(error => {
+                console.error("Error loading posts:", error);
+            });
+    }
 
     function renderPosts(posts) {
         if (!posts || !posts.length) return;
