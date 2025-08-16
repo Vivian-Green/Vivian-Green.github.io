@@ -1,0 +1,16 @@
+var recentPosts = [
+    {
+        "filename": "202508151715procedural mesh generation time ball edition.md",
+        "title": "Procedural Mesh Generation Time Again, Ball Edition ",
+        "subtitle": "Demo scene:",
+        "thumbnail": "https://i.imgur.com/BancAif.png",
+        "content": "# Procedural Mesh Generation Time Again, Ball Edition \n\n![Screenshot of a generated planet that happens to be a flower](https://i.imgur.com/BancAif.png)  \n![](https://i.imgur.com/VQj37QV.png)\n\nWrote a script to solve my ball displacement needs. This started as a remake of an old unity prototype from 2018, sometime mid-june. Basically it's golf with orbital physics, and a very janky camera. For the second shot at it, I may have gotten a bit distracted with mesh generation again. I wanted a system I could use to quickly mockup a planet, so, I spent the better part of a week writing a system to help me quickly solve that problem. Basically, I wanted to generate planets with heightmaps through textures, and a few parameters, with accurate collision. \n\nBasically I'm taking parameters for latitude and longitude segments, minimum and maximum distance from the center, and a texture with heightmap data in the red channel; I'm then projecting a grid of points to a sphere, displaced by the offset in the red channel. Thought about using green and blue for north/south and east/west displacement, but that's not implemented.\n\n\n### Demo scene:\n[demo scene link](https://www.youtube.com/watch?v=PYdqGG5Um7o)\n\nIt's able to use the same generated mesh for collision, which is just lovely. Godot 4 is beautiful. I figured I'd have to write mesh decomposition again, but no! `ConcavePolygonShape3D` understands what you've been through. `ConcavePolygonShape3D` won't hurt you like other collision shapes have.\n\n---\n\nI *might* make the code available for just the script, but I'd like to put a but more polish on it first, it's not quiiiite where I'd like it to be. Maybe I make the in-game camera work, who knows.\n\n"
+    },
+    {
+        "filename": "202508081846noise based texture reconstructer.md",
+        "title": "Comically bad Compression but it's a Visual Effect now",
+        "subtitle": "",
+        "thumbnail": "https://i.imgur.com/vuaiFKd.jpeg \"reconstruction screenshot\"",
+        "content": "# Comically bad Compression but it's a Visual Effect now\n\n![reconstruction screenshot](https://i.imgur.com/vuaiFKd.jpeg \"reconstruction screenshot\")\n\nBuilt this in Python back in 2024 on a whim, thinking sampling noise recursively might be able to make a decently close version of an image, and maaaaybe it'll be smaller in size. What I ended up with instead was an interesting painterly effect, that took a while to generate. \n\n[demo video](https://www.youtube.com/watch?v=Ae_Mxj4cF7Y) \n\nWorks by analyzing the image at multiple scales, producing grids of tiles, searching for noise seeds that best approximate the texture for each tile, for each color channel, then blending those grids together as the scales get finer.\n"
+    }
+];
