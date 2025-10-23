@@ -44,8 +44,9 @@
 
         main {
             display: flex;
-            height: calc(100vh-40px);
+            height: calc(100vh - 40px);
             padding-top: 40px;
+            overflow: hidden;
         }
 
         /* Left Navigation Panel */
@@ -64,7 +65,7 @@
             margin: 0 60px;    /* Horizontal letterboxing only */
             padding: 0;        /* Remove vertical padding */
             border-radius: 4px;
-            overflow: hidden;  /* Prevent inner scrolling */
+            overflow: visible;
         }
 
         /* Content inside inner container */
@@ -358,8 +359,7 @@
             </div>
         </div>
         <div id="right-panel" class="panel">
-            <div class="content">
-                <!--<h2>Right Panel (Thumbnails)</h2>-->
+            <div class="content" id="thumbnail-grid">
                 <div class="thumbnail-grid" id="thumbnail-grid">
                     <!-- Thumbnails will be dynamically loaded here -->
                 </div>

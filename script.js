@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Add resize listener
     window.addEventListener('resize', handleOrientation);
+    window.addEventListener('hashchange', handleHashScroll);
 
     function showErrorMessage(message = "Posts couldn't be loaded. Please refresh or try again later.") {
         const container = document.getElementById('posts-container') || document.body;
@@ -32,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <p>⚠️ ${message}</p>
             <button onclick="window.location.reload()">Retry</button>
         `;
-        container.prepend(errorElement);
+        container.prepend(errorElement);  // todo: ADD CSS FOR THIS ERROR- THIS RETRY BUTTON IS FUCKIN MIKE WAZOWSKI'D
     }
 
     // JSONP loader function
@@ -70,12 +71,16 @@ document.addEventListener("DOMContentLoaded", function () {
             renderPosts(recent);
             renderPosts(older);
             
+            // After posts are loaded, check for hash
+            handleHashScroll();
+            
         } catch (error) {
             console.error("JSONP failed, trying local fallback:", error);
             try {
                 // Fallback to local files
                 const localRecent = await fetch('/recentPosts.json').then(r => r.json());
                 renderPosts(localRecent);
+                handleHashScroll();
             } catch (e) {
                 showErrorMessage();
             }
@@ -86,9 +91,13 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!posts || !posts.length) return;
 
         posts.forEach(post => {
+            // Create a slug from the filename (or title) for the ID
+            const postId = post.filename.replace(/\.md$/, '').replace(/[^a-z0-9]/gi, '-').toLowerCase();
+            
             // Create post preview
             const postPreview = document.createElement('div');
             postPreview.classList.add('post-preview');
+            postPreview.id = `post-${postId}`;  // Add ID here
             postPreview.innerHTML = `
                 <p class="timestamp">${formatDateFromFilename(post.filename)}</p>
                 <div class="post-content">${markdownToHTML(post.content)}</div>
@@ -109,6 +118,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 thumbnailGrid.appendChild(thumbnail);
             }
         });
+    }
+
+    function handleHashScroll() {
+        if (window.location.hash) {
+            const postId = window.location.hash.substring(1); // Remove the #
+            const element = document.getElementById(postId);
+            if (element) {
+                // Small timeout to ensure posts are loaded
+                setTimeout(() => {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            }
+        }
     }
 
     // Check if marked is available
