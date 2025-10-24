@@ -9,8 +9,10 @@ RED='\033[0;31m'
 GREEN='\033[1;32m'
 C='\033[0m'
 
+echo
+
 if ! python3 build_js.py; then
-    echo -e "${RED}Build failed!${C}"
+    echo -e "${RED}\n\n     Build failed!\n\n${C}"
     exit 1
 fi
 
@@ -25,8 +27,8 @@ fi
 # Push either way
 echo -e "\nPushing to GitHub..."
 if ! git push origin main; then
-    echo -e "${RED}\n\nFailed to push to GitHub!${C}"
+    echo -e "${RED}\n\n     Failed to push to GitHub!${C}"
     exit 1
 fi
 
-echo -e "${GREEN}\n\nDeployment completed successfully!\n\n${C}"
+echo -e "${GREEN}\n\n       Deployment completed successfully!\n\n${C}"
