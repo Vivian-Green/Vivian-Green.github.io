@@ -84,12 +84,13 @@ def generate_simple_rss(posts_data, base_url="https://vivianswebsite.neocities.o
 
     items = []
     for post in posts_data:
-        slug = os.path.splitext(post['filename'])[0]
-        # Remove the timestamp from the slug for cleaner URLs
-        clean_slug = re.sub(r'^\d{12}', '', slug)
+        # Create the same slug format as your JavaScript
+        filename_without_ext = post['filename'].replace('.md', '')
+        # Replace non-alphanumeric characters with hyphens and convert to lowercase
+        post_id = re.sub(r'[^a-z0-9]', '-', filename_without_ext.lower())
         
         # Use hash-based URLs that work with your single-page app
-        post_url = f"{base_url}/#post-{clean_slug}"
+        post_url = f"{base_url}/#post-{post_id}"
         
         items.append(item_template.format(
             title=escape_xml(post['title']),
