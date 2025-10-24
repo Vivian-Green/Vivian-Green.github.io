@@ -115,6 +115,24 @@ document.addEventListener("DOMContentLoaded", function () {
                         <span class="title">${post.title}</span>
                     </div>
                 `;
+                
+                // Add click event to scroll to the relevant post
+                thumbnail.addEventListener('click', () => {
+                    const postElement = document.getElementById(`post-${postId}`);
+                    if (postElement) {
+                        postElement.scrollIntoView({ behavior: 'smooth' });
+                        
+                        // Update URL hash without triggering hashchange
+                        const currentHash = window.location.hash.substring(1);
+                        if (currentHash !== `post-${postId}`) {
+                            history.replaceState(null, null, `#post-${postId}`);
+                        }
+                    }
+                });
+                
+                // Add cursor pointer to indicate it's clickable
+                thumbnail.style.cursor = 'pointer';
+                
                 thumbnailGrid.appendChild(thumbnail);
             }
 
