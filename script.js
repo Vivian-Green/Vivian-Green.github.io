@@ -200,12 +200,11 @@ document.addEventListener("DOMContentLoaded", function () {
         return `${month}/${day}/${year}`;
     }
 
-    // === IMAGE MODAL HANDLER ===
     function setupImageModals() {
         const modal = document.getElementById("imageModal");
         const modalImage = document.getElementById("modalImage");
 
-        // Delegate clicks from any post image
+        // on clicks from any post image
         document.body.addEventListener("click", function (e) {
             const img = e.target.closest(".post-content img");
             if (!img) return;
@@ -217,7 +216,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.body.style.overflow = "hidden"; // Prevent scroll under modal
         });
 
-        // Close modal on click background or Esc
+        // close modal on click background or esc
         modal.addEventListener("click", function (e) {
             if (e.target === modal) {
                 modal.classList.remove("active");
@@ -232,7 +231,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        // Optional: Zoom / pan inside modal
         let zoom = 1;
         let isDragging = false;
         let startX, startY, translateX = 0, translateY = 0;
