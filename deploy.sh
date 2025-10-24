@@ -1,13 +1,19 @@
 #!/bin/bash
 # deploy.sh
 
-# Use provided commit message or default to "bump"
+# Use provided commit message or default to bump
 COMMIT_MSG="${1:-bump}"
 
-# Run the build script
-python3 build_js.py
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+C='\033[0m'
 
-# Check if there are any changes to commit
+if ! python3 build_js.py; then
+    echo -e "${RED}Build failed!${C}"
+    exit 1
+fi
+
 if git diff-index --quiet HEAD --; then
     echo "No changes to commit."
 else
@@ -16,6 +22,11 @@ else
     git commit -m "$COMMIT_MSG"
 fi
 
-# Push regardless (in case there are commits that haven't been pushed yet)
-echo "Pushing to origin/main..."
-git push origin main
+# Push either way
+echo -e "\nPushing to GitHub..."
+if ! git push origin main; then
+    echo -e "${RED}Failed to push to GitHub!${C}"
+    exit 1
+fi
+
+echo -e "${GREEN}Deployment completed successfully!${C}"
