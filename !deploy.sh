@@ -24,7 +24,7 @@ echo
 if git diff-index --quiet HEAD --; then
     echo -e "${GRAY}    ----    No changes to commit.    ----    ${C}"
 else
-    echo -e "${CYAN}    ----    Changes detected, committing...    ----    ${C}"
+    echo -e "${CYAN}    ----    Changes detected, committing...    ----    \n${C}"
     git add . && \
     git commit -m "$COMMIT_MSG"
 fi
