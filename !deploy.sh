@@ -17,8 +17,6 @@ if ! python3 build_js.py; then
     exit 1
 fi
 
-
-
 # changes ? commit : no
 echo
 if git diff-index --quiet HEAD --; then
