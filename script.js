@@ -117,6 +117,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 `;
                 thumbnailGrid.appendChild(thumbnail);
             }
+
+            document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightElement(block);
         });
     }
 
@@ -143,17 +146,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to convert markdown to HTML using marked
     function markdownToHTML(markdown) {
-        // Configure marked.js options for better code rendering
         marked.marked.setOptions({
             highlight: function(code, lang) {
-                if (lang) {
-                    return `<pre><code class="language-${lang}">${code}</code></pre>`;
+                if (lang && hljs.getLanguage(lang)) {
+                    try {
+                        return hljs.highlight(code, { language: lang }).value;
+                    } catch (err) {
+                        console.error('Highlight.js error:', err);
+                    }
                 }
-                return `<pre><code>${code}</code></pre>`;
-            },
-            langPrefix: 'language-',
-            gfm: true,
-            breaks: true
+                return hljs.highlightAuto(code).value;
+            }
         });
 
         let html = marked.marked(markdown);
