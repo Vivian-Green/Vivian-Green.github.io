@@ -200,5 +200,71 @@ document.addEventListener("DOMContentLoaded", function () {
         return `${month}/${day}/${year}`;
     }
 
+    // === IMAGE MODAL HANDLER ===
+    function setupImageModals() {
+        const modal = document.getElementById("imageModal");
+        const modalImage = document.getElementById("modalImage");
+
+        // Delegate clicks from any post image
+        document.body.addEventListener("click", function (e) {
+            const img = e.target.closest(".post-content img");
+            if (!img) return;
+
+            // Show modal
+            modal.classList.add("active");
+            modalImage.src = img.src;
+            modalImage.style.transform = "scale(1)";
+            document.body.style.overflow = "hidden"; // Prevent scroll under modal
+        });
+
+        // Close modal on click background or Esc
+        modal.addEventListener("click", function (e) {
+            if (e.target === modal) {
+                modal.classList.remove("active");
+                document.body.style.overflow = "";
+            }
+        });
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && modal.classList.contains("active")) {
+                modal.classList.remove("active");
+                document.body.style.overflow = "";
+            }
+        });
+
+        // Optional: Zoom / pan inside modal
+        let zoom = 1;
+        let isDragging = false;
+        let startX, startY, translateX = 0, translateY = 0;
+
+        modalImage.addEventListener("wheel", function (e) {
+            e.preventDefault();
+            zoom += e.deltaY * -0.001;
+            zoom = Math.min(Math.max(zoom, 1), 4);
+            modalImage.style.transform = `scale(${zoom}) translate(${translateX}px, ${translateY}px)`;
+        });
+
+        modalImage.addEventListener("mousedown", function (e) {
+            if (zoom === 1) return;
+            isDragging = true;
+            startX = e.clientX - translateX;
+            startY = e.clientY - translateY;
+            modalImage.classList.add("image-modal-zoomed");
+        });
+
+        document.addEventListener("mouseup", function () {
+            isDragging = false;
+            modalImage.classList.remove("image-modal-zoomed");
+        });
+
+        document.addEventListener("mousemove", function (e) {
+            if (!isDragging) return;
+            translateX = e.clientX - startX;
+            translateY = e.clientY - startY;
+            modalImage.style.transform = `scale(${zoom}) translate(${translateX}px, ${translateY}px)`;
+        });
+    }
+
     loadPosts();
+    setupImageModals();
 });
