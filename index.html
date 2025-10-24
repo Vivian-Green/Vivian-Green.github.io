@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="Vivian's Blog RSS">
     <title>Vivian's Website</title>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 	<script>
@@ -33,7 +34,7 @@
             left: 0;
             width: 100%;
             height: 40px;
-            background-color: #251922;
+            background-color: #352932;
             color: white;
             z-index: 1000;
             display: flex;
@@ -53,14 +54,14 @@
         #left-panel {
             flex: 1;
             overflow-y: auto;  /* Scroll on the outer container */
-            background-color: #251922;
+            background-color: #352932;
             border-right: 1px solid #444;
             padding: 20px;
         }
 
         /* Inner container - should NOT scroll */
         .left-panel-inner {
-            background-color: #1a1a1a;
+            background-color: #202020;
             min-height: 100%;  /* Use min-height instead of height */
             margin: 0 60px;    /* Horizontal letterboxing only */
             padding: 0;        /* Remove vertical padding */
@@ -78,7 +79,7 @@
             flex: 0 0 auto;
             width: 240px;
             overflow-y: auto;
-            background-color: #1a1a1a;
+            background-color: #202020;
             padding: 20px;
         }
 
@@ -342,7 +343,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 </head>	
 <body>
-    <header style="background-color: #251922; height:40px;">
+    <header style="background-color: #352932; height:40px;">
 		<table class="headerbar", style="width: 100%; height: 40px;">
 			<tr>
 				<td style="height: 30px;">
