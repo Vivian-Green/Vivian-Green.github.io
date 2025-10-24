@@ -2,15 +2,14 @@ import os
 import re
 import json
 
-# Path to the folder where markdown posts are stored
 POSTS_DIR = './posts'
 
 def parse_markdown(content):
-    # Extract title (first level header `#`)
+    # extract title (first level header `#`)
     title_match = re.search(r'^# (.+)', content, re.MULTILINE)
     title = title_match.group(1) if title_match else 'Untitled'
 
-    # Extract subtitle (second level header `##`)
+    # extract subtitle (second level header `##`)
     subtitle_match = re.search(r'^## (.+)', content, re.MULTILINE)
     subtitle = subtitle_match.group(1) if subtitle_match else ''
     
@@ -18,7 +17,7 @@ def parse_markdown(content):
         subtitle_match2 = re.search(r'^### (.+)', content, re.MULTILINE)
         subtitle = subtitle_match2.group(1) if subtitle_match2 else ''
 
-    # Extract thumbnail (first image URL `![](url)`)
+    # extract thumbnail (first image URL `![](url)`)
     thumbnail_match = re.search(r'!\[.*?\]\((.*?)\)', content)
     thumbnail = thumbnail_match.group(1) if thumbnail_match else ''
 
@@ -32,8 +31,8 @@ def parse_markdown(content):
 def build_output_files(posts_dir):
     posts_data = []
 
-    # Iterate over all markdown files in the directory
-    for filename in os.listdir(posts_dir):
+    # foreach .md in dir
+    for filename in os.listdir(posts_dir): # can probably python list comprehension this one? but those aren't... readable.......
         if filename.endswith('.md'):
             with open(os.path.join(posts_dir, filename), 'r', encoding='utf-8') as f:
                 content = f.read()
@@ -46,21 +45,22 @@ def build_output_files(posts_dir):
                     'content': post_data['content']
                 })
 
-    # Sort posts by filename in reverse chronological order
+    # sort posts by most recent first (filename alphabetical, reversed)
     posts_data.sort(key=lambda x: x['filename'], reverse=True)
 
-    # Split into recent posts (first 2) and older posts (the rest)
+    # split into recent and whatever else for faster initial loading
     recent_posts = posts_data[:2]
     older_posts = posts_data[2:]
 
-    # Generate JSON versions (for Neocities fallback)
+    # generate JSON versions (for Neocities)
     with open('recentPosts.json', 'w', encoding='utf-8') as f:
         json.dump(recent_posts, f, indent=4, ensure_ascii=False)
     
     with open('olderPosts.json', 'w', encoding='utf-8') as f:
         json.dump(older_posts, f, indent=4, ensure_ascii=False)
 
-    # Generate JSONP versions (for GitHub Pages)
+    # generate JSONP versions (for GitHub Pages)
+    # todo: figure out how to get github pages to accept json-
     with open('recentPosts.js', 'w', encoding='utf-8') as f:
         f.write(f'handleRecentPosts({json.dumps(recent_posts, indent=4, ensure_ascii=False)});')
     
