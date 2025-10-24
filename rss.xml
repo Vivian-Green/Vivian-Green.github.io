@@ -2,74 +2,74 @@
 <rss version="2.0">
 <channel>
     <title>ViviansUsername's Website Blog Thing</title>
-    <link>https://Vivian-Green.github.io</link>
+    <link>https://vivianswebsite.neocities.org</link>
     <description>I will infodump at you about whatever I am working on, and probably plug my youtube channel. Usually programming, with python, godot, linux mint, and occasionally some light web dev, as I try to make something portfolioesc happen.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 24 Oct 2025 14:12:08 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 24 Oct 2025 14:14:18 GMT</lastBuildDate>
     
     
     <item>
         <title>Shiny new Site Deployment Script</title>
-        <link>https://Vivian-Green.github.io/posts/site deployment script.html</link>
+        <link>https://vivianswebsite.neocities.org/#post-site deployment script</link>
         <description>woooo deploying this site doesn&apos;t suck so much anymore- </description>
         <pubDate>Fri, 24 Oct 2025 12:59:00 GMT</pubDate>
-        <guid>https://Vivian-Green.github.io/posts/site deployment script.html</guid>
+        <guid>https://vivianswebsite.neocities.org/#post-site deployment script</guid>
     </item>
     <item>
         <title>So I Rewrote My Discord Bot For the Fourth Time</title>
-        <link>https://Vivian-Green.github.io/posts/cinnamon4 post time finally.html</link>
+        <link>https://vivianswebsite.neocities.org/#post-cinnamon4 post time finally</link>
         <description>W H Y</description>
         <pubDate>Thu, 23 Oct 2025 14:32:00 GMT</pubDate>
-        <guid>https://Vivian-Green.github.io/posts/cinnamon4 post time finally.html</guid>
+        <guid>https://vivianswebsite.neocities.org/#post-cinnamon4 post time finally</guid>
     </item>
     <item>
         <title>Updating How These Posts are Stored, Maybe This Works</title>
-        <link>https://Vivian-Green.github.io/posts/website overhaul again.html</link>
+        <link>https://vivianswebsite.neocities.org/#post-website overhaul again</link>
         <description>Updating How These Posts are Stored, Maybe This Works</description>
         <pubDate>Sat, 16 Aug 2025 14:35:00 GMT</pubDate>
-        <guid>https://Vivian-Green.github.io/posts/website overhaul again.html</guid>
+        <guid>https://vivianswebsite.neocities.org/#post-website overhaul again</guid>
     </item>
     <item>
         <title>Procedural Mesh Generation Time Again, Ball Edition </title>
-        <link>https://Vivian-Green.github.io/posts/procedural mesh generation time ball edition.html</link>
+        <link>https://vivianswebsite.neocities.org/#post-procedural mesh generation time ball edition</link>
         <description>Demo scene:</description>
         <pubDate>Fri, 15 Aug 2025 17:15:00 GMT</pubDate>
-        <guid>https://Vivian-Green.github.io/posts/procedural mesh generation time ball edition.html</guid>
+        <guid>https://vivianswebsite.neocities.org/#post-procedural mesh generation time ball edition</guid>
     </item>
     <item>
         <title>Comically bad Compression but it&apos;s a Visual Effect now</title>
-        <link>https://Vivian-Green.github.io/posts/noise based texture reconstructer.html</link>
+        <link>https://vivianswebsite.neocities.org/#post-noise based texture reconstructer</link>
         <description>Comically bad Compression but it&apos;s a Visual Effect now</description>
         <pubDate>Fri, 08 Aug 2025 18:46:00 GMT</pubDate>
-        <guid>https://Vivian-Green.github.io/posts/noise based texture reconstructer.html</guid>
+        <guid>https://vivianswebsite.neocities.org/#post-noise based texture reconstructer</guid>
     </item>
     <item>
         <title>Animalese Voiceover and Textbox Renderer</title>
-        <link>https://Vivian-Green.github.io/posts/animalese voiceover and text renderer.html</link>
+        <link>https://vivianswebsite.neocities.org/#post-animalese voiceover and text renderer</link>
         <description>Animalese Voiceover and Textbox Renderer</description>
         <pubDate>Fri, 08 Aug 2025 16:35:00 GMT</pubDate>
-        <guid>https://Vivian-Green.github.io/posts/animalese voiceover and text renderer.html</guid>
+        <guid>https://vivianswebsite.neocities.org/#post-animalese voiceover and text renderer</guid>
     </item>
     <item>
         <title>YoinkYT development progress</title>
-        <link>https://Vivian-Green.github.io/posts/yoinkyt progress.html</link>
+        <link>https://vivianswebsite.neocities.org/#post-yoinkyt progress</link>
         <description>Y&apos;see it&apos;s called that because it&apos;s it&apos;s yoinking from youtube it&apos;s a kit for that it&apos;s a kit for yoinking it&apos;s the Yoink Kit for youtube it&apos;s-</description>
         <pubDate>Fri, 13 Sep 2024 02:53:00 GMT</pubDate>
-        <guid>https://Vivian-Green.github.io/posts/yoinkyt progress.html</guid>
+        <guid>https://vivianswebsite.neocities.org/#post-yoinkyt progress</guid>
     </item>
     <item>
         <title>on the structure of this website thing</title>
-        <link>https://Vivian-Green.github.io/posts/serverless out of laziness.html</link>
+        <link>https://vivianswebsite.neocities.org/#post-serverless out of laziness</link>
         <description>So basically I don&apos;t want to bother with hosting a server...</description>
         <pubDate>Wed, 11 Sep 2024 11:43:00 GMT</pubDate>
-        <guid>https://Vivian-Green.github.io/posts/serverless out of laziness.html</guid>
+        <guid>https://vivianswebsite.neocities.org/#post-serverless out of laziness</guid>
     </item>
     <item>
         <title>hello world</title>
-        <link>https://Vivian-Green.github.io/posts/hello world.html</link>
+        <link>https://vivianswebsite.neocities.org/#post-hello world</link>
         <description>I think this is a website?</description>
         <pubDate>Wed, 11 Sep 2024 11:03:00 GMT</pubDate>
-        <guid>https://Vivian-Green.github.io/posts/hello world.html</guid>
+        <guid>https://vivianswebsite.neocities.org/#post-hello world</guid>
     </item>
 </channel>
 </rss>

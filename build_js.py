@@ -59,7 +59,7 @@ def escape_xml(text):
                 .replace('"', '&quot;')
                 .replace("'", '&apos;'))
 
-def generate_simple_rss(posts_data, base_url="https://Vivian-Green.github.io"):    
+def generate_simple_rss(posts_data, base_url="https://vivianswebsite.neocities.org"):    
     rss_template = '''<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
 <channel>
@@ -87,7 +87,9 @@ def generate_simple_rss(posts_data, base_url="https://Vivian-Green.github.io"):
         slug = os.path.splitext(post['filename'])[0]
         # Remove the timestamp from the slug for cleaner URLs
         clean_slug = re.sub(r'^\d{12}', '', slug)
-        post_url = f"{base_url}/posts/{clean_slug}.html"
+        
+        # Use hash-based URLs that work with your single-page app
+        post_url = f"{base_url}/#post-{clean_slug}"
         
         items.append(item_template.format(
             title=escape_xml(post['title']),
