@@ -5,9 +5,16 @@
     <link>https://vivianswebsite.neocities.org</link>
     <description>I will infodump at you about whatever I am working on, and probably plug my youtube channel. Usually programming, with python, godot, linux mint, and occasionally some light web dev, as I try to make something portfolioesc happen.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 24 Oct 2025 14:55:06 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 31 Dec 2025 00:15:26 GMT</lastBuildDate>
     
     
+    <item>
+        <title>Changes in Cinnamon 4.1.0</title>
+        <link>https://vivianswebsite.neocities.org/#post-202512310002cinnamon4-documentation-4-1-0</link>
+        <description>How it&apos;s shaped, now that it&apos;s been decoupled from discord.py</description>
+        <pubDate>Wed, 31 Dec 2025 00:02:00 GMT</pubDate>
+        <guid>https://vivianswebsite.neocities.org/#post-202512310002cinnamon4-documentation-4-1-0</guid>
+    </item>
     <item>
         <title>Shiny new Site Deployment Script</title>
         <link>https://vivianswebsite.neocities.org/#post-202510241259site-deployment-script</link>
