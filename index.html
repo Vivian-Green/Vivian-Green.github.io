@@ -113,44 +113,64 @@
 
         /* ===== CONTENT STYLES ===== */
         .post-content {
-            max-width: 800px;
+            background-color: #20202080;
+            max-width: 850px;
             margin: 0 auto;
-            padding: 20px;
         }
 
         .post-content h1 {
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin: 1.5rem 0;
+            padding-left: 40px;
+            padding-right: 40px;
             color: #f1f1f1;
             border-bottom: 1px solid #444;
             padding-bottom: 0.5rem;
         }
 
         .post-content h2 {
-            font-size: 1.6rem;
+            font-size: 2rem;
             margin: 1.3rem 0;
             color: #e1e1e1;
+            padding-left: 40px;
+            padding-right: 40px;
         }
 
         .post-content h3 {
-            font-size: 1.3rem;
+            font-size: 1.6rem;
             margin: 1.1rem 0;
             color: #d1d1d1;
+            padding-left: 40px;
+            padding-right: 40px;
         }
 
         .post-content p {
-            margin-bottom: 1.2rem;
-            font-size: 1rem;
+            margin-bottom: 1.4rem;
+            font-size: 1.2rem;
             color: #ccc;
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
+        .post-content li {
+            margin-bottom: 1.4rem;
+            font-size: 1.2rem;
+            color: #ccc;
+            padding-left: 40px;
+            padding-right: 40px;
         }
         
         .post-content a {
             color: #6d9eeb;
             text-decoration: none;
+            padding-left: 40px;
+            padding-right: 40px;
         }
 
         .post-content a:hover {
             text-decoration: underline;
+            padding-left: 40px;
+            padding-right: 40px;
         }
 
         .post-content img {
@@ -298,6 +318,7 @@
             }
             
             .post-content {
+                background-color: #30303080;
                 padding: 15px;
                 margin: 25px;
             }
@@ -307,13 +328,20 @@
         /* Post Preview Blocks */
         .post-preview {
             background-color: #303030;
+            background-image:
+                linear-gradient(rgba(59,37,47,.95), rgba(59,37,47,.95)),
+                url("fler7.apng");
+            background-repeat: repeat;
+            background-size: 40px 40px; /* shrink the effective tile */
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
-            border-left: 4px solid #4a2d3a;
+            border-left: 4px solid #5b3848;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
+
+
 
         .post-preview:hover {
             transform: translateY(-2px);
@@ -381,7 +409,7 @@
 		<table class="headerbar", style="width: 100%; height: 40px;">
 			<tr>
 				<td style="height: 30px;">
-					<h2 style="text-align: center">vivian's website</h1>
+					<h2 style="text-align: center">vivian's website</h2>
 				</td>
 			</tr>
 		</table>
