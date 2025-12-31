@@ -306,7 +306,6 @@
 
         /* Post Preview Blocks */
         .post-preview {
-            position: relative;
             background-color: #303030;
             border-radius: 8px;
             padding: 20px;
@@ -314,25 +313,6 @@
             border-left: 4px solid #4a2d3a;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
-            overflow: hidden; /* Important for containing the pseudo-element */
-            z-index: 1; /* Ensure content stays above background */
-        }
-
-        /* Tiled rotated background using pseudo-element */
-        .post-preview::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background-image: url('favicon.ico'); /* Replace with your image path */
-            background-repeat: repeat;
-            background-size: 40px 40px; /* Adjust tile size */
-            opacity: 0.1; /* Adjust transparency */
-            transform: rotate(15deg); /* Adjust rotation angle */
-            z-index: -1; /* Place behind content */
-            pointer-events: none; /* Allow clicks through the background */
         }
 
         .post-preview:hover {
@@ -345,14 +325,10 @@
             font-size: 0.85rem;
             margin-bottom: 10px;
             text-align: right;
-            position: relative; /* Ensure it stays above background */
-            z-index: 1;
         }
 
         .post-preview .post-content {
             padding: 10px 0;
-            position: relative; /* Ensure content stays above background */
-            z-index: 1;
         }
 
         /* Responsive adjustments */
